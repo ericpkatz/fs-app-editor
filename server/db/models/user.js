@@ -17,6 +17,9 @@ const User = db.define('user', {
   },
   githubId: {
     type: Sequelize.INTEGER
+  },
+  code: {
+    type: Sequelize.TEXT
   }
 })
 

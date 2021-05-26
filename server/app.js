@@ -10,6 +10,17 @@ app.use(morgan('dev'))
 // body parsing middleware
 app.use(express.json())
 
+const { User } = require('./db').models;
+
+app.put('/api/code', async (req, res, next) => {
+  try {
+    const user = await User.findByToken(req.headers.authorization);
+    await user.update({ code: req.body.code });
+    res.send(user);
+  } catch (ex) {
+    next(ex)
+  }
+})
 // auth and api routes
 app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))

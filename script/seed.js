@@ -11,8 +11,12 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Users
+  const code = `
+const message = 'hello world from cody';
+console.log(message);
+`;
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
+    User.create({ username: 'cody', password: '123', code }),
     User.create({ username: 'murphy', password: '123' }),
   ])
 
