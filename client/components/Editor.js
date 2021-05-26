@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios';
+import { setAuth } from '../store'; 
 
 /**
  * COMPONENT
@@ -17,7 +18,14 @@ class Editor extends React.Component{
   }
   componentWillUnmount(){
     //TODO - remove editor
-    //this.el.parentNode.removeChild(this.el);
+    try {
+      const container = this.el.parentNode;
+      const _editor = container.querySelector('.CodeMirror');
+      _editor.parentNode.removeChild(_editor);
+    }
+    catch(ex){
+      console.log(ex);
+    }
   }
   render(){
     return (
@@ -44,7 +52,8 @@ const mapDispatch = dispatch => {
           authorization: window.localStorage.getItem('token')
         }
       })
-      console.log(response.data);
+      //update Store 
+      dispatch(setAuth(response.data));
     }
   };
 }
